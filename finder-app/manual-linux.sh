@@ -64,7 +64,8 @@ mkdir -p "${OUTDIR}/rootfs/var/log"
 cd "$OUTDIR"
 if [ ! -d "${OUTDIR}/busybox" ]
 then
-git clone git://busybox.net/busybox.git
+#git clone git://busybox.net/busybox.git
+git clone https://git.busybox.net/busybox
     cd busybox
     git checkout ${BUSYBOX_VERSION}
     # TODO:  Configure busybox
@@ -86,18 +87,11 @@ ${CROSS_COMPILE}readelf -a bin/busybox | grep "Shared library"
 
 # TODO: Add library dependencies to rootfs
 find ~ -name ld-linux-aarch64.so.1 -exec cp '{}' "${OUTDIR}/rootfs/lib/" \;
-#cp "${find_sharedlib_path}" "${OUTDIR}/rootfs/lib/"
 
-#find_sharedlib_path=$(find ~ -name libm.so.6)
-#cp "${find_sharedlib_path}" "${OUTDIR}/rootfs/lib64/"
 find ~ -name libm.so.6 -exec cp '{}' "${OUTDIR}/rootfs/lib64/" \;
 
-#find_sharedlib_path=$(find ~ -name libresolv.so.2)
-#cp "${find_sharedlib_path}" "${OUTDIR}/rootfs/lib64/"
 find ~ -name libresolv.so.2 -exec cp '{}' "${OUTDIR}/rootfs/lib64/" \;
 
-#find_sharedlib_path=$(find ~ -name libc.so.6)
-#cp "${find_sharedlib_path}" "${OUTDIR}/rootfs/lib64/"
 find ~ -name libc.so.6 -exec cp '{}' "${OUTDIR}/rootfs/lib64/" \;
 
 # TODO: Make device nodes
