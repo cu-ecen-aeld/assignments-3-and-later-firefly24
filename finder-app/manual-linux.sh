@@ -86,13 +86,13 @@ ${CROSS_COMPILE}readelf -a bin/busybox | grep "program interpreter"
 ${CROSS_COMPILE}readelf -a bin/busybox | grep "Shared library"
 
 # TODO: Add library dependencies to rootfs
-find ~ -name ld-linux-aarch64.so.1 -exec cp '{}' "${OUTDIR}/rootfs/lib/" \;
+find /usr/local/. -name ld-linux-aarch64.so.1 -exec cp '{}' "${OUTDIR}/rootfs/lib/" \;
 
-find ~ -name libm.so.6 -exec cp '{}' "${OUTDIR}/rootfs/lib64/" \;
+find /usr/local/. -name libm.so.6 -exec cp '{}' "${OUTDIR}/rootfs/lib64/" \;
 
-find ~ -name libresolv.so.2 -exec cp '{}' "${OUTDIR}/rootfs/lib64/" \;
+find /usr/local/. -name libresolv.so.2 -exec cp '{}' "${OUTDIR}/rootfs/lib64/" \;
 
-find ~ -name libc.so.6 -exec cp '{}' "${OUTDIR}/rootfs/lib64/" \;
+find /usr/local/. -name libc.so.6 -exec cp '{}' "${OUTDIR}/rootfs/lib64/" \;
 
 # TODO: Make device nodes
 sudo mknod -m 666 dev/null c 1 3
@@ -124,3 +124,4 @@ sudo chown -R root:root *
 find . | cpio -H newc -ov --owner root:root > ${OUTDIR}/initramfs.cpio
 cd ..
 gzip -f initramfs.cpio
+chmod 777 initramfs.cpio.gz
