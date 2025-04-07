@@ -25,7 +25,7 @@ else
 	WRITEDIR=/tmp/aeld-data/$3
 fi
 
-cd 'dirname $0'
+cd $(dirname $0)
 MATCHSTR="The number of files are ${NUMFILES} and the number of matching lines are ${NUMFILES}"
 
 echo "Writing ${NUMFILES} files containing string ${WRITESTR} to ${WRITEDIR}"
