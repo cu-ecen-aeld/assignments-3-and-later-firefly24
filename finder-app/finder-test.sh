@@ -4,7 +4,7 @@
 
 set -e
 set -u
-
+cd $(dirname $0)
 NUMFILES=10
 WRITESTR=AELD_IS_FUN
 WRITEDIR=/tmp/aeld-data
